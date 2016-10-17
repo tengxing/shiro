@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd"
+	default-lazy-init="true">
+	<!-- 凭证匹配器 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="myRealm" />
+		<!-- <property name="sessionManager" ref="sessionManager"/> -->
+		<!-- 记住密码管理 -->
+		<property name="rememberMeManager" ref="rememberMeManager" />
+		<!-- 使用下面配置的缓存管理器 -->
+		<property name="cacheManager" ref="shiroEhcacheManager" />
+	</bean>
+
+	<!-- 记住密码Cookie -->
+	<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<constructor-arg value="rememberMe" />
+		<property name="httpOnly" value="true" />
+		<!-- 7天,采用spring el计算方便修改[细节决定成败]！ -->
+		<property name="maxAge" value="#{7 * 24 * 60 * 60}" />
+	</bean>
+
+	<!-- rememberMe管理器,cipherKey生成见{@code Base64Test.java} -->
+	<bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+		<property name="cipherKey"
+			value="#{T(org.apache.shiro.codec.Base64).decode('5aaC5qKm5oqA5pyvAAAAAA==')}" />
+		<property name="cookie" ref="rememberMeCookie" />
+	</bean>
+	<!--自定义Realm -->
+	<bean id="myRealm" class="cn.teng.shiro.MyRealm">
+		<!-- 如需要自定义缓存时间放开以下.修改 ehcache.xml -->
+		<!--<property name="authenticationCachingEnabled" value="true"/> -->
+		<!--<property name="authenticationCacheName" value="authenticationCache"/> -->
+		<!--<property name="authorizationCachingEnabled" value="true"/> -->
+		<!--<property name="authorizationCacheName" value="authorizationCache"/> -->
+	</bean>
+
+	<!-- <bean id="sysUserFilter" class="com.lanyuan.shiro.filter.SysUserFilter"/> -->
+
+
+
+
+
+	<!-- 配置shiro的过滤器工厂类，id- shiroFilter要和我们在web.xml中配置的过滤器一致 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/login" />
+		<property name="successUrl" value="/index" />
+		<property name="unauthorizedUrl" value="/unauth.jsp" />
+		<!-- 自定义权限配置 -->
+		<property name="filterChainDefinitions">
+			<value>
+				/login.htm=anon
+				/submit.htm=anon
+				/error.htm=anon
+				<!-- /member/** =authc,roles[admin]  -->
+			</value>
+		</property>
+	</bean>
+
+	<!-- <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/> -->
+
+	<!-- 会话DAO -->
+	<!-- <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO"> 
+		<property name="activeSessionsCacheName" value="shiro-activeSessionCache"/> 
+		<property name="sessionIdGenerator" ref="sessionIdGenerator"/> </bean> -->
+
+	<!-- 会话验证调度器 -->
+	<!-- 全局的会话信息检测扫描信息间隔30分钟 -->
+	<!-- <bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.quartz.QuartzSessionValidationScheduler"> 
+		<property name="sessionValidationInterval" value="1800000"/> <property name="sessionManager" 
+		ref="sessionManager"/> </bean> -->
+	<!-- 会话管理器 -->
+	<!-- 全局的会话信息设置成30分钟,sessionValidationSchedulerEnabled参数就是是否开启扫描 -->
+	<!-- <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager"> 
+		<property name="globalSessionTimeout" value="1800000"/> <property name="deleteInvalidSessions" 
+		value="true"/> <property name="sessionValidationSchedulerEnabled" value="true"/> 
+		<property name="sessionValidationScheduler" ref="sessionValidationScheduler"/> 
+		<property name="sessionDAO" ref="sessionDAO"/> </bean> -->
+
+
+	<!--shiro缓存管理器 -->
+	<bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManagerConfigFile" value="classpath:ehcache-shiro.xml" />
+	</bean>
+
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+
+	<bean
+		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+</beans>

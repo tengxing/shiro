@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+    http://www.springframework.org/schema/beans/spring-beans-4.1.xsd   
+    http://www.springframework.org/schema/context   
+    http://www.springframework.org/schema/context/spring-context-4.1.xsd  
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+    http://www.springframework.org/schema/task 
+    http://www.springframework.org/schema/task/spring-task-4.1.xsd     
+    http://www.springframework.org/schema/aop 
+     http://www.springframework.org/schema/aop/spring-aop-4.1.xsd"
+     default-lazy-init="false"> 
+
+	<!--一般在此引入各中配置文件，实现spring统一管理  -->
+ 	<!-- 引入配置文件 -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath*:application.properties</value>
+			</list>
+		</property>
+	</bean>
+	<!-- hibernate.xml mybatis.xml shiro.xml ehcache.xml redis.xml 等 -->
+	 <import resource="classpath:datasource.xml" />  
+	 <import resource="classpath:mybatis.xml"/>
+    
+<!--      定时器开关 开始 -->
+	 <task:annotation-driven /> 
+    	<!-- 支持事务注解的（@Transactional） -->
+	<tx:annotation-driven /> 
+
+</beans>
