@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/member")
+@RequestMapping("/")
 public class MemberController extends BaseController{
 	private static final Logger log=LoggerFactory.getLogger(MemberController.class);
 	
