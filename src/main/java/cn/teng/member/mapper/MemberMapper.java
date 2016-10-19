@@ -80,5 +80,6 @@ public interface MemberMapper {
      * @return
      */
    /* Member findUserVoById(Long id);*/
+    List<Member> findStudentAll();
 
 }

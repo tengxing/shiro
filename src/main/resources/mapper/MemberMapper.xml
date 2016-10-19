@@ -39,6 +39,12 @@
         id, loginname, name, password, sex, age, usertype, status, 
         organization_id, createdate, phone
     </sql>
+   
+    <select id="findStudentAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user order by id
+    </select>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
         select
         <include refid="Base_Column_List"/>

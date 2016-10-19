@@ -20,6 +20,7 @@
 	<!-- spring与mybatis整合配置，扫描所有dao 通过comment jsr003 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
 		p:basePackage="cn.teng.*.mapper" p:sqlSessionFactoryBeanName="sqlSessionFactory" />
+		
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>

@@ -48,8 +48,6 @@
         <property name="filters" value="stat"/>
     </bean>
     
-        <!-- 对dataSource 数据源进行事务管理 -->
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
-          p:dataSource-ref="dataSource"/>
+       
           
 </beans>
