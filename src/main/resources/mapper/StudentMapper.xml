@@ -9,11 +9,11 @@
         <result column="class_name" property="className" jdbcType="VARCHAR"/>
         <result column="major" property="major" jdbcType="VARCHAR"/>
         <result column="departdent" property="departdent" jdbcType="VARCHAR"/>
-        <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
         <result column="status" property="status" jdbcType="TINYINT"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id, student_id,username,password,class_name,major,departdent ,phone_number, status
+        id, student_id,username,password,class_name,major,departdent ,phone, status
     </sql>
 
  <!--    <select id="findRolePageCondition" resultMap="BaseResultMap" parameterType="PageInfo">
@@ -34,14 +34,13 @@
         from student order by id
     </select>
 
-  <!--   <select id="findRoleById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+     <select id="findStudentByStudentId" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
         <include refid="Base_Column_List"/>
-        from role
-        where id = #{id,jdbcType=BIGINT}
+        from student
+        where student_id = #{studentId}
     </select>
-
-    <select id="findResourceIdListByRoleId" resultType="java.lang.Long" parameterType="java.lang.Long">
+<!--     <select id="findResourceIdListByRoleId" resultType="java.lang.Long" parameterType="java.lang.Long">
         SELECT
             e.resource_id AS id
         FROM

@@ -36,6 +36,9 @@
 	},'-',{
 		iconCls: 'icon-help',
 		handler: function(){alert('help')}
+	},'-',{
+		iconCls: 'icon-add',
+		handler: function(){addAccount();}
 	}],
     columns:[[
 		{field:'name',title:'学号',width:150},
@@ -80,7 +83,7 @@
 	onLoadSuccess:function(data){
         $('.role-easyui-linkbutton-ok').linkbutton({text:'授权',plain:true,iconCls:'icon-ok'});
         $('.role-easyui-linkbutton-edit').linkbutton({text:'编辑',plain:true,iconCls:'icon-edit'});
-        $('.role-easyui-linkbutton-del').linkbutton({text:'删除',plain:true,iconCls:'icon-del'}).click("click",function(){delAccount();});
+        $('.role-easyui-linkbutton-del').linkbutton({text:'删除',plain:true,iconCls:'icon-del'});
     },
 });
 
@@ -104,7 +107,7 @@ function addAccount() {
 		title : "新增",
 		type : 2,
 		area : [ "600px", "80%" ],
-		content : rootPath + '/user/addUI.shtml'
+		content : rootPath + '/student/addPage'
 	});
 }
 function delAccount(id) {
@@ -147,75 +150,8 @@ function permissions(id) {
 		
 		
 
-			<!--  <tr>
-				<td>学号</td>
-				<td>学院</td>
-				<td>专业</td>
-				<td>班级</td>
-				<td>手机</td>
-							
-			</tr> -->
-			<%-- <tr>
-			
-			
-				<td>${memmber.id}</td>
-				<td>${memmber.loginName}</td>
-				<td>${message.phone}</td>
-				<td>${message.roles}</td>
-				<td>${message.phoneNumber}</td>
-			</tr>  --%>
+		
 		</table>
-		<!-- <table title="Reports using TreeGrid" class="easyui-treegrid" style="width:700px;height:250px"
-			data-options="
-				url: rootPath+'treegrid',
-				method: 'get',
-				rownumbers: true,
-				showFooter: true,
-				idField: 'id',
-				treeField: 'region'
-			">
-		<thead frozen="true">
-			<tr>
-				<th field="region" width="200">会员</th>
-			</tr>
-		</thead>
-		<thead>
-			<tr>
-				<th colspan="4">2009</th>
-				<th colspan="4">2010</th>
-			</tr>
-			<tr>
-				<th field="f1" width="60" align="right">1st qrt.</th>
-				<th field="f2" width="60" align="right">2st qrt.</th>
-				<th field="f3" width="60" align="right">3st qrt.</th>
-				<th field="f4" width="60" align="right">4st qrt.</th>
-				<th field="f5" width="60" align="right">1st qrt.</th>
-				<th field="f6" width="60" align="right">2st qrt.</th>
-				<th field="f7" width="60" align="right">3st qrt.</th>
-				<th field="f8" width="60" align="right">4st qrt.</th>
-			</tr>
-		</thead>
-	</table> -->
-	<!-- <table class="easyui-datagrid" style="width:400px;height:250px"
-    data-options="url:rootPath+'/student/datagrid',fitColumns:true,singleSelect:true">
-    <thead>
-		<tr>
-			<th data-options="field:'id',width:100">Code</th>
-			<th data-options="field:'loginname',width:100">Name</th>
-			<th data-options="field:'name',width:100">Name</th>
-			<th data-options="field:'password',width:100">Name</th>
-			<th data-options="field:'sex',width:100">Name</th>
-			<th data-options="field:'age',width:100">Name</th>
-			<th data-options="field:'usertype',width:100">Name</th>
-			<th data-options="field:'status',width:100">Name</th>
-			
-			<th data-options="field:'organizationId',width:100">Name</th>
-			<th data-options="field:'password',width:100">Name</th>
-			
-			<th data-options="field:'status',width:100,align:'right'">Price</th>
-		</tr>
-    </thead>
-</table> -->
 
 	</div>
 	 <div id="toolbar" style="display: none;">

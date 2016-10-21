@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.teng.member.entity.Member;
+import cn.teng.member.entity.Student;
 import cn.teng.member.mapper.MemberMapper;
 import cn.teng.member.mapper.StudentMapper;
 /**
@@ -78,6 +79,23 @@ public class StudetnController extends BaseController{
 		List<Member> list=memberMapper.findStudentAll();
 		log.info((list.toString()==null)? "null":"not null");
 		return list;
+	}
+	
+	/**
+	 * 添加学生页
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value="/add",method=RequestMethod.GET)
+	public String addPage(){
+		return "student/add";
+	}
+	
+	@RequestMapping(value="/add",method=RequestMethod.POST)
+	public Object add(Student student){
+		Student stu=studentMapper.findStudentByStudentId(student.getStudentId());
+		
+		return "student/add";
 	}
 	
 	
