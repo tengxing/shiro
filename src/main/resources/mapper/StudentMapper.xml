@@ -94,14 +94,7 @@
             r.id = #{id}
     </select>
 
-    <insert id="insert" parameterType="cn.teng.member.entity.Role">
-        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
-            SELECT LAST_INSERT_ID()
-        </selectKey>
-        insert into role (name, seq, description, status)
-        values (#{name,jdbcType=VARCHAR}, #{seq,jdbcType=TINYINT}, #{description,jdbcType=VARCHAR},
-        #{status,jdbcType=TINYINT})
-    </insert>
+    
 
     <update id="updateRole" parameterType="cn.teng.member.entity.Role">
         update role
@@ -127,4 +120,19 @@
         delete from role
         where id = #{id,jdbcType=BIGINT}
     </delete> -->
+    <insert id="insert" parameterType="cn.teng.member.entity.Student">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into student (username, password, phone,student_id,departdent,major,class_name,status)
+        values (
+        #{username,jdbcType=VARCHAR},
+        #{password,jdbcType=VARCHAR},
+        #{phone,jdbcType=VARCHAR},
+        #{studentId,jdbcType=VARCHAR},
+        #{departdent,jdbcType=VARCHAR},
+        #{major,jdbcType=VARCHAR},
+        #{className,jdbcType=VARCHAR},
+        #{status,jdbcType=TINYINT})
+    </insert>
 </mapper>

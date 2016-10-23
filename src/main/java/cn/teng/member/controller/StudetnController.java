@@ -86,16 +86,32 @@ public class StudetnController extends BaseController{
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value="/add",method=RequestMethod.GET)
+	@RequestMapping(value="/addPage",method=RequestMethod.GET)
 	public String addPage(){
-		return "student/add";
+		return "student/addPage";
 	}
 	
+	/**
+	 * 保存学生
+	 * 
+	 * @param student
+	 * @return
+	 */
 	@RequestMapping(value="/add",method=RequestMethod.POST)
-	public Object add(Student student){
-		Student stu=studentMapper.findStudentByStudentId(student.getStudentId());
+	@ResponseBody
+	public Object add(){
+		Student student=new Student();
+			
+		try{
+		studentMapper.insert(student);
+		}catch (Exception e){
+			e.printStackTrace();
+			return renderError("保存出错");
+			
+		}
+		log.info("ok");
 		
-		return "student/add";
+		return renderSuccess("保存成功");
 	}
 	
 	

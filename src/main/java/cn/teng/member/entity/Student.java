@@ -3,13 +3,14 @@ package cn.teng.member.entity;
 import java.io.Serializable;
 
 /**
- * @description：学生
+ * 学生实体
+ * 
  * @author tx
  *
  */
 public class Student implements Serializable {
 	private static final long serialVersionUID = -1756241579303707517L;
-
+	
 	private Integer id;
 	private String studentId;
 	private String username;
@@ -32,6 +33,10 @@ public class Student implements Serializable {
 		this.departdent = departdent;
 		this.phone = phone;
 		this.status = status;
+	}
+
+	public Student() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public Integer getId() {

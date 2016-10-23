@@ -19,4 +19,9 @@ public interface StudentMapper {
 	 * @return
 	 */
 	Student findStudentByStudentId(String studentId);
+	/**
+	 * 
+	 * 保存学生
+	 */
+	void insert(Student student);
 }
