@@ -18,11 +18,10 @@ public class Student implements Serializable {
 	private String className;
 	private String major;
 	private String departdent;
-	private String phone;
 	private Integer status;
 
 	public Student(Integer id, String studentId, String username, String password, String className, String major,
-			String departdent, String phone, Integer status) {
+			String departdent, Integer status) {
 		super();
 		this.id = id;
 		this.studentId = studentId;
@@ -31,7 +30,6 @@ public class Student implements Serializable {
 		this.className = className;
 		this.major = major;
 		this.departdent = departdent;
-		this.phone = phone;
 		this.status = status;
 	}
 
@@ -95,14 +93,6 @@ public class Student implements Serializable {
 		this.departdent = departdent;
 	}
 
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
 	public Integer getStatus() {
 		return status;
 	}
@@ -115,7 +105,7 @@ public class Student implements Serializable {
 	public String toString() {
 		return "Student [id=" + id + ", " + "studentId=" + studentId + "," + " username=" + username + ", "
 				+ "password=" + password + ", " + "className=" + className + "," + " major=" + major + ", "
-				+ "departdent=" + departdent + ", phone=" + phone + ", status=" + status + "]";
+				+ "departdent=" + departdent +  ", status=" + status + "]";
 	}
 
 }

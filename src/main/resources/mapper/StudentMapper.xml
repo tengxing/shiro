@@ -13,7 +13,7 @@
         <result column="status" property="status" jdbcType="TINYINT"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id, student_id,username,password,class_name,major,departdent ,phone, status
+        id, student_id,username,password,class_name,major,departdent , status
     </sql>
 
  <!--    <select id="findRolePageCondition" resultMap="BaseResultMap" parameterType="PageInfo">
@@ -31,13 +31,13 @@
     <select id="findStudentAll" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from student order by id
+        from db_student order by id
     </select>
 
      <select id="findStudentByStudentId" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
         <include refid="Base_Column_List"/>
-        from student
+        from db_student
         where student_id = #{studentId}
     </select>
 <!--     <select id="findResourceIdListByRoleId" resultType="java.lang.Long" parameterType="java.lang.Long">
@@ -121,14 +121,13 @@
         where id = #{id,jdbcType=BIGINT}
     </delete> -->
     <insert id="insert" parameterType="cn.teng.member.entity.Student">
-        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+        <!-- <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
             SELECT LAST_INSERT_ID()
-        </selectKey>
-        insert into student (username, password, phone,student_id,departdent,major,class_name,status)
+        </selectKey> -->
+        insert into db_student (username, password,student_id,departdent,major,class_name,status)
         values (
         #{username,jdbcType=VARCHAR},
         #{password,jdbcType=VARCHAR},
-        #{phone,jdbcType=VARCHAR},
         #{studentId,jdbcType=VARCHAR},
         #{departdent,jdbcType=VARCHAR},
         #{major,jdbcType=VARCHAR},

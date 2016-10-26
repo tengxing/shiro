@@ -3,6 +3,7 @@ package cn.teng.member.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +77,7 @@ public class StudetnController extends BaseController{
 	@ResponseBody
 	@Transactional 
 	public Object datagrid(){
-		List<Member> list=memberMapper.findStudentAll();
+		List<Student> list=studentMapper.findStudentAll();
 		log.info((list.toString()==null)? "null":"not null");
 		return list;
 	}
@@ -99,9 +100,22 @@ public class StudetnController extends BaseController{
 	 */
 	@RequestMapping(value="/add",method=RequestMethod.POST)
 	@ResponseBody
-	public Object add(){
+	public Object add(@Param("username")String username,
+			@Param("password")String password,
+			@Param("studentId")String studentId,
+			@Param("departdent")String departdent,
+			@Param("major")String major,
+			@Param("className")String className,
+			@Param("status")Integer status){
 		Student student=new Student();
-			
+		student.setUsername(username);
+		student.setPassword(password);
+		student.setStudentId(studentId);
+		student.setDepartdent(departdent);
+		student.setMajor(major);
+		student.setClassName(className);
+		student.setStatus(status);
+		log.info(student.toString());
 		try{
 		studentMapper.insert(student);
 		}catch (Exception e){

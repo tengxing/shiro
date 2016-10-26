@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.teng.member.mapper.TeacherMapper">
+	<resultMap id="BaseResultMap" type="cn.teng.member.entity.Teacher">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="teacher_id" property="teacherId" jdbcType="VARCHAR" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="major" property="major" jdbcType="VARCHAR" />
+		<result column="age" property="age" jdbcType="BIGINT" />
+		<result column="teach_age" property="teachAge" jdbcType="BIGINT" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="free_time" property="freeTime" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,
+		teacher_id,username,password,major,age,teach_age,free_time,status,description
+	</sql>
+
+	<!-- <select id="findRolePageCondition" resultMap="BaseResultMap" parameterType="PageInfo"> 
+		select <include refid="Base_Column_List"/> from role order by ${sort} ${order} 
+		limit #{from}, #{size} </select> <select id="findRolePageCount" resultType="java.lang.Integer" 
+		parameterType="PageInfo"> select count(*) count from role </select> -->
+
+	<select id="findTeacherAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from db_teacher order by id
+	</select>
+
+	<insert id="insert" parameterType="cn.teng.member.entity.Teacher">
+		<!-- <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER"> 
+			SELECT LAST_INSERT_ID() </selectKey> -->
+		insert into db_teacher
+		(teacher_id,username,password,major,age,teach_age,free_time,status,description)
+		values (
+		#{teacherId,jdbcType=VARCHAR},
+		#{username,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR},
+		#{major,jdbcType=VARCHAR},
+		#{age,jdbcType=BIGINT},
+		#{teachAge,jdbcType=BIGINT},
+		#{freeTime,jdbcType=VARCHAR},
+		#{status,jdbcType=TINYINT},
+		#{description,jdbcType=VARCHAR}
+		)
+	</insert>
+	<select id="findDataGrid" resultMap="BaseResultMap"
+		parameterType="PageInfo">
+		select
+		<include refid="Base_Column_List" />
+		from db_teacher
+		order by ${sort} ${order}
+		limit #{from}, #{size}
+	</select>
+
+	<!-- <select id="findStudentByStudentId" resultMap="BaseResultMap" parameterType="java.lang.String"> 
+		select <include refid="Base_Column_List"/> from db_student where student_id 
+		= #{studentId} </select> -->
+	<!-- <select id="findResourceIdListByRoleId" resultType="java.lang.Long" 
+		parameterType="java.lang.Long"> SELECT e.resource_id AS id FROM role r LEFT 
+		JOIN role_resource e ON r.id = e.role_id WHERE r.id = #{id} </select> <select 
+		id="findResourceIdListByRoleIdAndType" resultType="cn.teng.member.entity.Role" 
+		parameterType="java.lang.Long"> SELECT s.id AS id, s. NAME AS 'name', s.url 
+		AS url, s.description AS description, s.icon AS icon, s.pid AS pid, s.seq 
+		AS seq, s. STATUS AS 'status', s.resourcetype AS resourcetype, s.createdate 
+		AS createdate FROM role r LEFT JOIN role_resource e ON r.id = e.role_id LEFT 
+		JOIN resource s ON e.resource_id = s.id WHERE r.id = #{id} AND s.resourcetype 
+		= 0 </select> <select id="findRoleResourceIdListByRoleId" resultType="java.lang.Long" 
+		parameterType="java.lang.Long"> SELECT e.id AS id FROM role r LEFT JOIN role_resource 
+		e ON r.id = e.role_id WHERE r.id = #{id} </select> <select id="findRoleResourceListByRoleId" 
+		resultType="java.util.HashMap" parameterType="java.lang.Long"> SELECT e.id 
+		AS id, s.url AS url FROM role r LEFT JOIN role_resource e ON r.id = e.role_id 
+		LEFT JOIN resource s ON e.resource_id = s.id WHERE r.id = #{id} </select> 
+		<update id="updateRole" parameterType="cn.teng.member.entity.Role"> update 
+		role <set> <if test="name != null"> name = #{name,jdbcType=VARCHAR}, </if> 
+		<if test="seq != null"> seq = #{seq,jdbcType=TINYINT}, </if> <if test="description 
+		!= null"> description = #{description,jdbcType=VARCHAR}, </if> <if test="status 
+		!= null"> status = #{status,jdbcType=TINYINT}, </if> </set> where id = #{id,jdbcType=BIGINT} 
+		</update> <delete id="deleteRoleById" parameterType="java.lang.Long"> delete 
+		from role where id = #{id,jdbcType=BIGINT} </delete> -->
+	<!-- <insert id="insert" parameterType="cn.teng.member.entity.Student"> 
+		<selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER"> SELECT 
+		LAST_INSERT_ID() </selectKey> insert into db_student (username, password,student_id,departdent,major,class_name,status) 
+		values ( #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{studentId,jdbcType=VARCHAR}, 
+		#{departdent,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, #{className,jdbcType=VARCHAR}, 
+		#{status,jdbcType=TINYINT}) </insert> -->
+</mapper>

@@ -41,13 +41,12 @@
 		handler: function(){addAccount();}
 	}],
     columns:[[
-		{field:'name',title:'学号',width:150},
+		{field:'username',title:'学号',width:150},
 		{field:'password',title:'姓名',width:150},
-		{field:'name',title:'手机',width:150},
-		{field:'password',title:'班级',width:150},
-		{field:'age',title:'专业',width:100},
-		{field:'loginname',title:'学院',width:150},
-		{field:'loginname',title:'学院',width:150},
+		{field:'studentId',title:'手机',width:150},
+		{field:'className',title:'班级',width:150},
+		{field:'major',title:'专业',width:100},
+		{field:'departdent',title:'学院',width:150},
 		{field:'status',title:'状态',width:50, sortable:true,formatter : function(value, row, index) {
        	 switch (value) {
          case 0:
@@ -56,7 +55,7 @@
              return '停用';
          }}},
 		{
-            field : 'sex',
+            field : 'major',
             title : '操作',
             width : 210,
 	    align:'center',
