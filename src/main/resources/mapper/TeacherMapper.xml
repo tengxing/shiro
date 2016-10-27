@@ -14,14 +14,8 @@
 		<result column="status" property="status" jdbcType="TINYINT" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id,
-		teacher_id,username,password,major,age,teach_age,free_time,status,description
+		id,teacher_id,username,password,major,age,teach_age,free_time,status,description
 	</sql>
-
-	<!-- <select id="findRolePageCondition" resultMap="BaseResultMap" parameterType="PageInfo"> 
-		select <include refid="Base_Column_List"/> from role order by ${sort} ${order} 
-		limit #{from}, #{size} </select> <select id="findRolePageCount" resultType="java.lang.Integer" 
-		parameterType="PageInfo"> select count(*) count from role </select> -->
 
 	<select id="findTeacherAll" resultMap="BaseResultMap">
 		select
@@ -46,7 +40,7 @@
 		#{description,jdbcType=VARCHAR}
 		)
 	</insert>
-	<select id="findDataGrid" resultMap="BaseResultMap"
+	<select id="findPageCondition" resultMap="BaseResultMap"
 		parameterType="PageInfo">
 		select
 		<include refid="Base_Column_List" />
@@ -54,7 +48,10 @@
 		order by ${sort} ${order}
 		limit #{from}, #{size}
 	</select>
-
+	<select id="findPageCount" resultType="java.lang.Integer" parameterType="PageInfo">
+		select count(*) count
+		from db_teacher
+	</select>
 	<!-- <select id="findStudentByStudentId" resultMap="BaseResultMap" parameterType="java.lang.String"> 
 		select <include refid="Base_Column_List"/> from db_student where student_id 
 		= #{studentId} </select> -->

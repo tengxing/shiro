@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.teng.member.entity.Teacher;
 import cn.teng.member.mapper.TeacherMapper;
+import cn.teng.utils.PageCondition;
 import cn.teng.utils.PageInfo;
 
 @Controller
@@ -25,8 +26,6 @@ public class TeacherController extends BaseController {
 	
 	@Autowired
 	TeacherMapper teacherMapper;
-	
-	PageInfo pageList=null;
 	
 	@RequestMapping(value="/info",method=RequestMethod.GET)
 	public String info(){
@@ -44,9 +43,9 @@ public class TeacherController extends BaseController {
 	@Transactional
 	@RequestMapping(value="/datagrid",method=RequestMethod.POST)
 	public Object datagrid(Integer page, Integer rows, String sort, String order){
-		 PageInfo pageInfo = new PageInfo(page, rows, sort, order);
-	        Map<String, Object> condition = new HashMap<String, Object>();
-	        pageInfo.setCondition(condition);
+		PageInfo pageInfo = new PageInfo(page, rows, sort, order);
+        Map<String, Object> condition = new HashMap<String, Object>();
+        pageInfo.setCondition(condition);
 		/*Teacher teacher=new Teacher();
 		String username="AAA";
 		String password="AAA";
@@ -69,13 +68,21 @@ public class TeacherController extends BaseController {
 		teacher.setStatus(status);
 		teacherMapper.insert(teacher);
 		log.info(teacher.toString());*/
-		List<Teacher> list=teacherMapper.findDataGrid(pageInfo);
-		
-		pageList.setRows(list);
-		pageList.setTotal(31);
-		log.info(pageList.toString());
-		return pageList;
+		findDataGrid(pageInfo);
+		log.info(pageInfo.toString());
+		return pageInfo;
 	}
+	/**
+	 * 分页数据 
+	 * List<Teacher> rows 
+	 * total
+	 * 
+	 * @param pageInfo
+	 */
+	public void findDataGrid(PageInfo pageInfo) {
+        pageInfo.setRows(teacherMapper.findPageCondition(pageInfo));
+        pageInfo.setTotal(teacherMapper.findPageCount(pageInfo));
+    }
 	
 	@RequestMapping(value="/add",method=RequestMethod.POST)
 	@ResponseBody

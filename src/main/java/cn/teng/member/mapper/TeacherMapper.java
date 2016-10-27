@@ -20,10 +20,17 @@ public interface TeacherMapper {
      */
     void insert(Teacher teacher);
     /**
-     * 分页
+     * 查询教师列表
      * 
      * @param pageInfo
      * @return
      */
-	List<Teacher> findDataGrid(PageInfo pageInfo);
+	List<Teacher> findPageCondition(PageInfo pageInfo);
+	 /**
+     * 教师统计
+     *
+     * @param pageInfo
+     * @return
+     */
+    int findPageCount(PageInfo pageInfo);
 }
