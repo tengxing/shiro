@@ -39,7 +39,7 @@
     sortOrder : 'asc',
     pageSize : 10,
    
-    pageList : [ 10, 20, 30, 40, 50, 100, 200, 300, 400, 500 ],
+    pageList : [ 10, 20, 30, 40, 50, 100],
     toolbar: [{
 		iconCls: 'icon-edit',
 		handler: function(){alert('edit')}
@@ -64,7 +64,7 @@
              return '未任课';
          }}},
 		{
-            field : 'age',
+            field : 'description',
             title : '操作',
             width : 210,
 	    align:'center',

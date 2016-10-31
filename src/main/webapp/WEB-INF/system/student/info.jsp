@@ -15,18 +15,19 @@
 			name="searchForm">
 			<div class="form-group">
 				<label class="control-label"> <span
-					class="h4 font-thin v-middle">账号:</span></label> <input
+					class="h4 font-thin v-middle">学号:</span></label> <input
 					class="input-medium ui-autocomplete-input" id="accountName"
-					name="userFormMap.accountName">
+					name="accountName">
 			</div>
 			<a href="javascript:void(0)" class="btn btn-default" id="search">查询</a>
+		
 			<a href="javascript:grid.exportData('/user/export.shtml')" class="btn btn-info" id="search">导出excel</a>
 		</form>
 	</div>
 	<header class="panel-heading">
 
 	<div class="doc-buttons">
-		<script>
+<script>
 	var dataGrid;
 	dataGrid=$('#treeGrid').datagrid({
     url:rootPath+'/student/datagrid',
@@ -43,11 +44,11 @@
     columns:[[
 		{field:'username',title:'学号',width:150},
 		{field:'password',title:'姓名',width:150},
-		{field:'studentId',title:'手机',width:150},
+		{field:'studentId',title:'手机',width:250},
 		{field:'className',title:'班级',width:150},
-		{field:'major',title:'专业',width:100},
-		{field:'departdent',title:'学院',width:150},
-		{field:'status',title:'状态',width:50, sortable:true,formatter : function(value, row, index) {
+		{field:'major',title:'专业',width:150},
+		{field:'departdent',title:'学院',width:200},
+		{field:'status',title:'状态',width:150, sortable:true,formatter : function(value, row, index) {
        	 switch (value) {
          case 0:
              return '正常';
@@ -55,7 +56,7 @@
              return '停用';
          }}},
 		{
-            field : 'major',
+            field : 'id',
             title : '操作',
             width : 210,
 	    align:'center',
@@ -116,17 +117,21 @@ function delAccount(id) {
         } else {
             dataGrid.datagrid('unselectAll').datagrid('uncheckAll');
         }
-	layer.confirm('是否删除？', function(index) {
-		var url = rootPath + '/user/deleteEntity.shtml';
-		var s = CommnUtil.ajax(url, {
-			ids : cbox.join(",")
-		}, "json");
-		if (s == "success") {
-			layer.msg('删除成功');
-			grid.loadData();
-		} else {
-			layer.msg('删除失败');
-		}
+	
+	layer.confirm('是否删除？', function(id) {
+		var url = rootPath + '/student/delete';
+		if (id) {
+          //  progressLoad();
+            $.post(url, {
+                'id' : id
+            }, function(result) {
+                if (result.success) {
+                    layer.msg('删除成功');
+                    dataGrid.datagrid('reload');
+                }
+            //    progressClose();
+            }, 'JSON');
+        }
 	});
 }
 function permissions(id) {

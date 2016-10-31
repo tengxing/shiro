@@ -21,8 +21,7 @@
 <title>学生添加</title>
 </head>
 <body>
-	<form id="form" name="form" class="form-horizontal" method="post"
-		action="${ctx}/student/add">
+	<form id="form" name="form" class="form-horizontal" method="post" action="${ctx}/student/add">
 		<section class="panel panel-default">
 		<div class="panel-body">
 			<div class="form-group">
@@ -96,14 +95,10 @@
 			<div class="line line-dashed line-lg pull-in"></div>
 
 			<footer class="panel-footer text-right bg-light lter">
-			<button type="submit" class="btn btn-success btn-s-xs">提交</button>
+			<button id="submit" class="btn btn-success btn-s-xs">提交</button>
 			</footer>
 		</section>
 	</form>
-	<script type="text/javascript">
-		if ("${msg}" != null) {
-			alert("${msg}");
-		}
-	</script>
+	
 </body>
 </html>

@@ -18,6 +18,7 @@ import cn.teng.member.entity.Teacher;
 import cn.teng.member.mapper.TeacherMapper;
 import cn.teng.utils.PageCondition;
 import cn.teng.utils.PageInfo;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/teacher")
@@ -46,7 +47,7 @@ public class TeacherController extends BaseController {
 		PageInfo pageInfo = new PageInfo(page, rows, sort, order);
         Map<String, Object> condition = new HashMap<String, Object>();
         pageInfo.setCondition(condition);
-		/*Teacher teacher=new Teacher();
+		Teacher teacher=new Teacher();
 		String username="AAA";
 		String password="AAA";
 		String major="AAA";
@@ -67,8 +68,8 @@ public class TeacherController extends BaseController {
 		teacher.setDescription(description);
 		teacher.setStatus(status);
 		teacherMapper.insert(teacher);
-		log.info(teacher.toString());*/
-		findDataGrid(pageInfo);
+		log.info(teacher.toString());
+		findDataGrid(pageInfo); 
 		log.info(pageInfo.toString());
 		return pageInfo;
 	}

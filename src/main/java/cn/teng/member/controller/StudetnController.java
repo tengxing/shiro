@@ -11,9 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.teng.member.entity.Member;
 import cn.teng.member.entity.Student;
 import cn.teng.member.mapper.MemberMapper;
 import cn.teng.member.mapper.StudentMapper;
@@ -126,6 +126,13 @@ public class StudetnController extends BaseController{
 		log.info("ok");
 		
 		return renderSuccess("保存成功");
+	}
+	@ResponseBody
+	@RequestMapping(value="/delete",method=RequestMethod.POST)
+	@Transactional
+	public Object delete(@RequestParam("id")Integer id){
+		studentMapper.deleteById(id);
+		return renderSuccess("删除成功");
 	}
 	
 	

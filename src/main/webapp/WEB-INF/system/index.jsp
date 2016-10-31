@@ -73,7 +73,7 @@ user-scalable - 用户是否可以手动缩放
 }
 .hidden-xs{
 	display: inherit;
-}
+}aaaaaa
 </style>
 <!-- base end -->
 <script type="text/javascript">
